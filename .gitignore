@@ -1,0 +1,15 @@
+# node / npm
+node_modules/
+dist/
+.env
+.env.local
+
+# python
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+
+# IDE
+.vscode/
+.DS_Store
