@@ -1,6 +1,7 @@
 # Backend — Django Files (MongoDB Atlas ready)
 
 # File: backend/todos/views.py
+from pydoc import doc
 from rest_framework import status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -56,15 +57,17 @@ class TodoViewSet(viewsets.ViewSet):
         if val.get('recurrence'):
             rec = Recurrence(**val['recurrence']) if val['recurrence'] else None
         doc = Todo(
-            user_id=str(request.user.id),
-            title=val['title'],
-            notes=val.get('notes', ''),
-            due=val.get('due', None),
-            tags=val.get('tags', []),
-            is_completed=val.get('is_completed', False),
-            recurrence=rec,
-            exceptions=val.get('exceptions', []),
-        ).save()
+    user_id=str(request.user.id),
+    title=val['title'],
+    notes=val.get('notes', ''),
+    due=val.get('due', None),
+    tags=val.get('tags', []),
+    is_completed=val.get('is_completed', False),
+    recurrence=rec,
+    exceptions=val.get('exceptions', []),
+    status=val.get('status', 'new'),
+).save()
+
         return Response(todo_to_dict(doc), status=status.HTTP_201_CREATED)
 
     def partial_update(self, request, pk=None):
@@ -75,11 +78,20 @@ class TodoViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
         val = serializer.validated_data
         for k, v in val.items():
-            if k == 'recurrence':
+            if k == "recurrence":
                 doc.recurrence = Recurrence(**v) if v else None
+            elif k == "status":
+                # Update both status and completion flag
+                doc.status = v
+                if v == "completed":
+                    doc.is_completed = True
+                elif v in ["new", "scheduled", "in_progress"]:
+                    doc.is_completed = False
             else:
                 setattr(doc, k, v)
+
         doc.save()
+
         return Response(todo_to_dict(doc))
 
     def destroy(self, request, pk=None):
@@ -129,7 +141,16 @@ class TodoViewSet(viewsets.ViewSet):
         doc.exceptions.append(dt)
         doc.save()
         return Response(todo_to_dict(doc))
-
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user_view(request):
+    """
+    Requires an Authorization: Bearer <access_token> header.
+    """
+    return Response({
+        'username': request.user.username,
+        'email': request.user.email
+    })
 
 @api_view(['post'])
 @permission_classes([AllowAny])

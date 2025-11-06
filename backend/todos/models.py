@@ -9,7 +9,7 @@ class Recurrence(EmbeddedDocument):
 
 class Todo(Document):
     meta = {'collection': 'todos'}
-
+    status = StringField(default="new", choices=("new","scheduled","in_progress","completed"))
 
     user_id = StringField(required=True)
     title = StringField(required=True, max_length=280)
@@ -21,8 +21,8 @@ class Todo(Document):
     exceptions = ListField(DateTimeField())
     created_at = DateTimeField(default=datetime.utcnow)
     updated_at = DateTimeField(default=datetime.utcnow)
-    
-    
+
+
     def save(self, *args, **kwargs):
         self.updated_at = datetime.utcnow()
         return super().save(*args, **kwargs)

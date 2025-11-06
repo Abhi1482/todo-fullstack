@@ -1,7 +1,9 @@
 :root{ --max:780px}
 body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:#f7f7fb; color:#111; margin:0;}
-.app-shell{max-width:var(--max);margin:0 auto;padding:20px}
+.app-shell{max-width:95%;margin:0 auto;padding:20px}
 header{display:flex;gap:12px;align-items:center}
 input,button{padding:8px;border-radius:6px;border:1px solid #ddd}
 button{cursor:pointer}
 
+.task-card { transition: box-shadow .15s ease, transform .12s ease; }
+.task-card:hover { transform: translateY(-3px); }

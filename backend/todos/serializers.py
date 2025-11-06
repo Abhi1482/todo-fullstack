@@ -9,6 +9,7 @@ class RecurrenceSerializer(serializers.Serializer):
 class TodoSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     user_id = serializers.CharField(read_only=True)
+    status = serializers.CharField(required=False, allow_blank=True)
     title = serializers.CharField()
     notes = serializers.CharField(allow_blank=True, required=False)
     due = serializers.DateTimeField(allow_null=True, required=False)

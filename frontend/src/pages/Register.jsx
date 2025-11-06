@@ -18,7 +18,14 @@ if(res.status === 201){ setMsg('Registered! Please login.'); }
 
 
 return (
-<form onSubmit={onSubmit} style={{maxWidth:420}}>
+<form onSubmit={onSubmit} style={{
+                maxWidth: 420,
+                width: '100%', // Ensure the form takes up 100% of the available width up to 420px
+                padding: '20px',
+                border: '1px solid #ccc', // Optional: for visual debugging/styling
+                borderRadius: '8px',
+                backgroundColor: '#f9f9f9',
+            }}>
 <h3>Register</h3>
 {msg && <p>{msg}</p>}
 <div style={{display:'flex',flexDirection:'column',gap:8}}>
