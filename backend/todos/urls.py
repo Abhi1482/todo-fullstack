@@ -7,8 +7,9 @@ router = DefaultRouter()
 router.register(r'todos', TodoViewSet, basename='todo')
 
 urlpatterns = [
+    
+    path('auth/register/', register,name='register'),
+    path('user/me/', current_user_view,name='current-user'),
     path('', include(router.urls)),
-    path('auth/register/', register),
-    path('user/me/', current_user_view),
 ]
 
