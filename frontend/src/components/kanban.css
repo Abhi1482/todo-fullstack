@@ -1,0 +1,35 @@
+/* Ensure this CSS is imported somewhere in your project */
+
+/* --- Desktop/Computer Layout (Default: Horizontal) --- */
+.kanban-board-layout {
+    /* Styles that were previously inline on the outer div */
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Optional: allow wrapping on very wide setups, though fixed widths often prevent this */
+    /* flex-wrap: wrap; */ 
+}
+
+/* --- Mobile/Phone Layout (Vertical Stacking) --- */
+@media (max-width: 768px) {
+    /* 768px is a common breakpoint for tablet/mobile */
+    .kanban-board-layout {
+        /* Force columns to stack vertically */
+        flex-direction: column; 
+        align-items: flex-start;
+         width: 100%;
+        box-sizing: border-box;
+        
+        /* Remove horizontal gap and add vertical spacing between columns */
+        gap: 24px; 
+    }
+    
+    /* Ensure the column wrappers take up the full width when stacked */
+   
+    
+    /* FIX: The fixed widths on COLUMNS in JS (width: 320) will conflict here. 
+       The !important overrides the inline style, making the column responsive. */
+}

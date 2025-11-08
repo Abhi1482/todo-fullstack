@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import dayjs from "dayjs";
 import { listTodos, updateTodo, deleteTodo } from "../todosApi"; // now uses deleteTodo
+import"./kanban.css";
 
 const COLUMNS = [
   { id: "new", title: "New task", width: 320, bg: "#F6F8FA" },
@@ -275,7 +276,7 @@ useEffect(() => {
   }
 
   return (
-    <div style={{ display: "flex", gap: 16, alignItems: "flex-start", width: "100%", boxSizing: "border-box" }}>
+    <div className="kanban-board-layout">
       <DragDropContext onDragEnd={onDragEnd}>
         {COLUMNS.map((col) => (
           <div key={col.id} style={{ width: col.width, minWidth: 260 }}>
