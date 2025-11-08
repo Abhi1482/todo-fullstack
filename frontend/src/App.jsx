@@ -5,14 +5,29 @@ import { useState, useEffect } from "react";
 
 export default function App() {
     const [username, setUsername] = useState(''); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // Load the username logic...
     useEffect(() => {
         const storedUsername = getUsername(); 
         if (storedUsername) {
             setUsername(storedUsername);
+            setIsLoggedIn(true);
+        }
+        else{
+            setIsLoggedIn(false);
         }
     }, []);
+    const handleAuthClick = () => {
+        if (isLoggedIn) {
+            // If logged in, perform logout and redirect
+            logout(); 
+            location.href = "/login";
+        } else {
+            // If logged out, just redirect to login page
+            location.href = "/login";
+        }
+    };
     
     // Define header styles for clarity
     const headerStyle = {
@@ -48,7 +63,9 @@ export default function App() {
                 
                 {/* Section 3: Logout Button (Pushed to the far right) */}
                 <nav style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <button onClick={() => { logout(); location.href = "/login"; }}>Logout</button>
+                    <button onClick={handleAuthClick}>
+                        {isLoggedIn ? "Logout" : "Login"}
+                    </button>
                 </nav>
             </header>
             <main style={{marginTop:16,display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center',alignContent:'center'}}>

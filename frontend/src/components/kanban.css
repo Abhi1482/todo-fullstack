@@ -22,6 +22,8 @@
         align-items: flex-start;
          width: 100%;
         box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
         
         /* Remove horizontal gap and add vertical spacing between columns */
         gap: 24px; 

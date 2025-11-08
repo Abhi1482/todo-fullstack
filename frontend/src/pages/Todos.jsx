@@ -72,9 +72,9 @@ setHint(data);
 
 return (
   <div style={{ display: "flex",flexDirection:"column",alignItems:"center", gap: 20 }}>
-    <form onSubmit={onQuickAdd} style={{ display: "flex", gap: 8, marginBottom: 12,width:"50%" }}>
+    <form onSubmit={onQuickAdd} style={{ display: "flex", gap: 8, marginBottom: 12 }}>
       <input
-        style={{ flex: 1, marginLeft: "2%", padding: "8px 10px", borderRadius: 6 }}
+        style={{ flex: 1, marginLeft: "2%", padding: "8px 10px", borderRadius: 6 ,width:"50vw"}}
         placeholder="e.g. Buy milk tomorrow 6pm #groceries"
         value={text}
         onChange={(e) => onSuggest(e.target.value)}
@@ -90,7 +90,7 @@ return (
     )}
 
     {/* Kanban board */}
-    <div style={{ marginTop: 16, marginLeft: 40 }}>
+    <div >
       <KanbanBoard />
     </div>
   </div>
